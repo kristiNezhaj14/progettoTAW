@@ -1,0 +1,33 @@
+<div class="auction-page">
+  <header class="auction-header">
+    <h1 class="auction-title">Auction for {{book.title}}</h1>
+  </header>
+  <div class="auction-content">
+    <div class="auction-image-container">
+      <img [src]="book.image" alt="{{book.title}} cover">
+    </div>
+    <div class="auction-details">
+      <h2 class="book-title">{{book.title}}</h2>
+      <p class="book-author">by {{book.author}}</p>
+      <p class="book-description">{{book.description}}</p>
+      <p class="book-rating"><strong>Rating:</strong> {{book.rating}}/5</p>
+      <div class="auction-info">
+        <div class="current-bid">
+          <h3>Current Bid</h3>
+          <p>${{book.currentBid}}</p>
+        </div>
+        <div class="highest-bidder">
+          <h3>Highest Bidder</h3>
+          <p>{{book.currentBidder}}</p>
+        </div>
+        <div class="time-remaining">
+          <h3>Time Remaining</h3>
+          <p>{{book.timeRemaining}}</p>
+        </div>
+      </div>
+      <button class="btn place-bid-btn">Place a Bid</button>
+      <!-- Pulsante per contattare il venditore -->
+      <button class="btn contact-seller-btn" [routerLink]="['/chat']">Contact Seller</button>
+    </div>
+  </div>
+</div>

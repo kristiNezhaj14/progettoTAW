@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login & Registration</title>
+  <link rel="stylesheet" href="register.component.css">
+</head>
+<body>
+  <div class="container">
+    <div class="form-container">
+      <div class="login-form active">
+        <h2>Register</h2>
+        <form>
+          <div class="form-group">
+            <label for="login-username">Username</label>
+            <input type="text" id="login-username" required>
+          </div>
+          <div class="form-group">
+            <label for="login-password">Email</label>
+            <input type="text" id="mail" required>
+          </div>
+          <div class="form-group">
+            <label for="login-password">Password</label>
+            <input type="password" id="login-password" required>
+          </div>
+          <div class="form-group">
+            <label for="login-password">Repeat password</label>
+            <input type="password" id="ripPass" required>
+          </div>
+          <div class="form-group">
+            <input type="checkbox" id="accept-terms" name="accept-terms">
+            <label for="accept-terms">Moderator Registration</label>
+          </div>
+          
+          <button type="submit">Login</button>
+          <p class="toggle">Alread have an account? <a href="/login" id="show-register">Login here</a></p>
+        </form>
+      </div>
+    
+    </div>
+  </div>
+  <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,93 @@
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    background: linear-gradient(135deg, #71b7e6, #9b59b6);
+    font-family: 'Arial', sans-serif;
+  }
+  
+  .container {
+    background: white;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    width: 400px;
+    max-width: 100%;
+  }
+  
+  .form-container {
+    position: relative;
+  }
+  
+  .login-form, .register-form {
+    display: none;
+    animation: fadeIn 0.5s;
+  }
+  
+  .form-container .login-form.active, .form-container .register-form.active {
+    display: block;
+  }
+  
+  h2 {
+    margin-bottom: 20px;
+    color: #333;
+    text-align: center;
+  }
+  
+  .form-group {
+    margin-bottom: 15px;
+  }
+  
+  label {
+    display: block;
+    margin-bottom: 5px;
+    color: #555;
+  }
+  
+  input[type="text"], input[type="password"], input[type="email"] {
+    width: 100%;
+    padding: 10px;
+    margin-top: 5px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    box-sizing: border-box;
+  }
+  
+  input[type="text"]:focus, input[type="password"]:focus, input[type="email"]:focus {
+    border-color: #9b59b6;
+    outline: none;
+    box-shadow: 0 0 5px rgba(155, 89, 182, 0.5);
+  }
+  
+  button {
+    width: 100%;
+    padding: 10px;
+    background: #9b59b6;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+  }
+  
+  button:hover {
+    background: #8e44ad;
+  }
+  
+  .toggle {
+    text-align: center;
+    margin-top: 20px;
+  }
+  
+  .toggle a {
+    color: #9b59b6;
+    text-decoration: none;
+  }
+  
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+  

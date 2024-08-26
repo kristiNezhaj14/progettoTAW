@@ -1,0 +1,30 @@
+<div class="chat-container">
+    <div class="chat-main">
+      <div class="chat-header">
+        <h3>Chat with Jane Smith</h3>
+        <button class="btn logout-btn"[routerLink]="['/home']" >Esci</button>
+      </div>
+  
+      <div class="chat-messages">
+        <div class="message received">
+          <div class="message-content">
+            <p>Hey, how's it going?</p>
+            <span class="time">12:00 PM</span>
+          </div>
+        </div>
+        <div class="message sent">
+          <div class="message-content">
+            <p>I'm good, thanks! And you?</p>
+            <span class="time">12:01 PM</span>
+          </div>
+        </div>
+        <!-- Aggiungi altri messaggi qui -->
+      </div>
+  
+      <div class="chat-input-container">
+        <input type="text" placeholder="Type your message...">
+        <button class="btn send-btn"><i class="fas fa-paper-plane"></i></button>
+      </div>
+    </div>
+  </div>
+  

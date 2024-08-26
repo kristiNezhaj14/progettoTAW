@@ -5,16 +5,27 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
 import { HomeComponent } from './home/home.component';
+import { RegisterComponent } from './register/register.component';
+import { ChatComponent } from './chat/chat.component';
+import { RouterModule } from '@angular/router';
+import { AuctionComponent } from './auction/auction.component';
+import { GroupchatComponent } from './groupchat/groupchat.component'; 
+
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
-    HomeComponent
+    HomeComponent,
+    RegisterComponent,
+    ChatComponent,
+    AuctionComponent,
+    GroupchatComponent
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    RouterModule,
   ],
   providers: [
     provideClientHydration()
