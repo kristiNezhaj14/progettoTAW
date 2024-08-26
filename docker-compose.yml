@@ -10,10 +10,11 @@ services:
       - ng serve
     working_dir: /app
     volumes:
-      - ./TAW2023-frontend:/app
+      - ./frontend:/app
     ports:
       - "8080:8080"
     depends_on:
+      - backend
       - redis
       - mongo
     networks:
@@ -28,7 +29,7 @@ services:
       - npm run build
       - npm run start
     volumes:
-      - ./TAW2023-backend:/app
+      - ./backend:/app
     ports:
       - "3001:3001"
     depends_on:
