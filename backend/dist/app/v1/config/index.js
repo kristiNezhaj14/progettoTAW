@@ -13,8 +13,7 @@ exports.config = void 0;
 const bodyParser = require("body-parser");
 const cors = require("cors");
 const mongoose_1 = require("mongoose");
-const v1_routes = require("../routes");
-const config_1 = require("./config");
+console.log(`Exporting new config!`);
 const config = (app, prefix) => __awaiter(void 0, void 0, void 0, function* () {
     //start http server
     //var auth = jwt({secret: process.env.JWT_SECRET}); //< to implement
@@ -24,7 +23,9 @@ const config = (app, prefix) => __awaiter(void 0, void 0, void 0, function* () {
     }
     try {
         const db_connection = mongoose_1.default.createConnection(mongo_cs);
-        const configuration = new config_1.Config(db_connection);
+        const { Config } = require("./config");
+        const configuration = new Config(db_connection);
+        const v1_routes = require('../routes');
         const router = v1_routes.getRouter(configuration);
         router.use(cors());
         router.use(bodyParser.json());

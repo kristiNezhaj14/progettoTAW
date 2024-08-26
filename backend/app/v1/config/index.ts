@@ -6,8 +6,7 @@ import {expressjwt as jwt} from 'express-jwt';
 import * as cors from 'cors';
 import mongoose, { mongo } from 'mongoose';
 
-import v1_routes = require('../routes');
-import { Config } from "./config";
+console.log(`Exporting new config!`);
  
 export const config = async (app: Express, prefix: string)  => {
     //start http server
@@ -20,7 +19,11 @@ export const config = async (app: Express, prefix: string)  => {
     
     try {
         const db_connection =  mongoose.createConnection(mongo_cs);
-        const configuration = new Config(db_connection);
+
+        const { Config } = require("./config");
+        const configuration = new Config(db_connection);        
+        const v1_routes = require('../routes');
+
         const router = v1_routes.getRouter(configuration);
         router.use(cors());
         router.use(bodyParser.json());

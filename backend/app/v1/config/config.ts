@@ -3,11 +3,13 @@ import * as mongoose from 'mongoose';
 class Config {
 
     private static instance: Config;
-
+    
     constructor(
         public db: mongoose.Connection,
     ){
-        if(typeof Config.instance != undefined){
+        console.log(`Config configuration started...`);
+
+        if(Config.instance !== null){
             throw "Config can't be instanciated more than once!";
         }
 
@@ -15,7 +17,8 @@ class Config {
     }
 
     static getInstance(): Config {
-        if(typeof Config.instance == undefined){
+        console.log(`Config get instance called`);
+        if(typeof Config.instance === undefined || Config.instance === null){
             throw "Config never instanciated";
         }
         

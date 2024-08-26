@@ -6,13 +6,15 @@ exports.mongoose = mongoose;
 class Config {
     constructor(db) {
         this.db = db;
-        if (typeof Config.instance != undefined) {
+        console.log(`Config configuration started...`);
+        if (Config.instance !== null) {
             throw "Config can't be instanciated more than once!";
         }
         Config.instance = this;
     }
     static getInstance() {
-        if (typeof Config.instance == undefined) {
+        console.log(`Config get instance called`);
+        if (typeof Config.instance === undefined || Config.instance === null) {
             throw "Config never instanciated";
         }
         return Config.instance;

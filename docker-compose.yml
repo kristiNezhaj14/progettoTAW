@@ -5,38 +5,33 @@ services:
     stdin_open: true
     tty: true
     image: node:current-alpine
-    command:
-      - npm install
-      - ng serve
+    command: sh -c "npm install -g @angular/cli && npm install && ng serve --host 0.0.0.0 << N"
     working_dir: /app
     volumes:
       - ./frontend:/app
     ports:
-      - "8080:8080"
+      - "4200:4200"
     depends_on:
-      - backend
       - redis
       - mongo
     networks:
       - app-network
 
-  backend:
-    stdin_open: true
-    tty: true
-    image: node:current-alpine
-    working_dir: /app
-    command: 
-      - npm run build
-      - npm run start
-    volumes:
-      - ./backend:/app
-    ports:
-      - "3001:3001"
-    depends_on:
-      - redis
-      - mongo
-    networks:
-      - app-network
+#  backend:
+#    stdin_open: true
+#    tty: true
+#    image: node:current-alpine
+#    working_dir: /app
+#    command: sh -c "npm i && npm run build && npm run start"
+#    volumes:
+#      - ./backend:/app
+#    ports:
+#      - "3001:3001"
+#    depends_on:
+#      - redis
+#      - mongo
+#    networks:
+#      - app-network
 
   redis:
     image: redis:latest

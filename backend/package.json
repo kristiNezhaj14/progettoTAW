@@ -1,14 +1,14 @@
 {
-  "name": "taw2023-backend",
+  "name": "auction-backend",
   "version": "1.0.0",
-  "description": "Backend part of the TAW2023 project",
+  "description": "Backend part of the TAW2024 auctions project",
   "main": "index.js",
   "scripts": {
     "build": "tsc",
     "start": "node dist/index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "Gicu Aftene - 882903",
+  "author": "Gicu Aftene, Kristina Avornic, Kristi Nezhaj",
   "license": "MIT",
   "dependencies": {
     "body-parser": "^1.20.2",
