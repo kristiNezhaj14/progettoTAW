@@ -1,0 +1,56 @@
+version: '3.8'
+#plaholder version of docker composer, to update later...
+services:
+  frontend:
+    stdin_open: true
+    tty: true
+    image: node:current-alpine
+    command:
+      - npm install
+      - ng serve
+    working_dir: /app
+    volumes:
+      - ./TAW2023-frontend:/app
+    ports:
+      - "8080:8080"
+    depends_on:
+      - redis
+      - mongo
+    networks:
+      - app-network
+
+  backend:
+    stdin_open: true
+    tty: true
+    image: node:current-alpine
+    working_dir: /app
+    command: 
+      - npm run build
+      - npm run start
+    volumes:
+      - ./TAW2023-backend:/app
+    ports:
+      - "3001:3001"
+    depends_on:
+      - redis
+      - mongo
+    networks:
+      - app-network
+
+  redis:
+    image: redis:latest
+    ports:
+      - "6379:6379"
+    networks:
+      - app-network
+
+  mongo:
+    image: mongo:latest
+    ports:
+      - "27017:27017"
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge
