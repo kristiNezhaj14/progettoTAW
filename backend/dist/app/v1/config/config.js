@@ -1,24 +1,22 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.mongoose = exports.Config = void 0;
-const mongoose = require("mongoose");
-exports.mongoose = mongoose;
-class Config {
-    constructor(db) {
-        this.db = db;
-        console.log(`Config configuration started...`);
-        if (Config.instance !== null) {
-            throw "Config can't be instanciated more than once!";
-        }
-        Config.instance = this;
+exports.Configuration = void 0;
+class Configuration {
+    constructor() {
+        //just a placeholder
     }
-    static getInstance() {
-        console.log(`Config get instance called`);
-        if (typeof Config.instance === undefined || Config.instance === null) {
-            throw "Config never instanciated";
-        }
-        return Config.instance;
+    /**
+     * I need this because once i create a connection it isn't ready and i can instanciate it in the constructor
+     * @param dbConnection
+     */
+    setDbConnection(dbConnection) {
+        this.db = dbConnection;
+    }
+    getDbConnection() {
+        return this.db;
     }
 }
-exports.Config = Config;
-Config.instance = null;
+exports.Configuration = Configuration;
+const ConfigV1 = new Configuration();
+exports.default = ConfigV1;
+//# sourceMappingURL=config.js.map

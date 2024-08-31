@@ -1,23 +1,31 @@
-import { RequestHandler } from "express";
+import { RequestHandler, request, response } from "express";
 
 import userService = require('./../services/userService');
 
-export class UserController {
-    static createUser: RequestHandler  = (req, res) => {
+export default class UserController {
+
+    static register: RequestHandler = (req: request, res: response) => {
+        UserController.createUser(req, res); //at the moment they perform the same type of request...
+    }
+
+    static createUser: RequestHandler  = (req: request, res: response) => {
         var data = req.body;
         
-        console.log(req.body);
-        console.log(req);
-        console.log(`Received data for user creation: `, data);
-
         userService.createUser(data).then( (result) => {
+            console.log(`Create user`, data, result);
             if(result){
-                res.writeHead(200, JSON.stringify({ status: 'success'}));
+                res.writeHead(200);
+                res.end(JSON.stringify({ status: 'success', id: result._id}));
             } else {
-                res.writeHead(500, JSON.stringify({ status: 'failed', message: 'An error occured, read the api docs!'}));
+                res.writeHead(500);
+                res.write(JSON.stringify({ status: 'failed', message: 'An error occured, read the api docs!'}));
             }
         }).catch( (reason) => {
-            res.writeHead(500, JSON.stringify({ status: 'failed', message: 'An error occured, read the api docs!'}));
+            console.error(reason);
+            res.writeHead(500);
+            res.write(JSON.stringify({ status: 'failed', message: 'An error occured, read the api docs!'}));
+        }).finally(() => {
+            res.end(); //< it's important to be sure that the request ends....
         });
     }
 
@@ -25,16 +33,20 @@ export class UserController {
         var data = req.body;
         var id = req.params.userId;
 
+        console.log(`Trying to update user ${id} info with:`, data);
+
         userService.updateUser(id, data).then((result) => {
             if(result){
-                res.writeHead(200, JSON.stringify({ status: 'success'}));
+                res.writeHead(200);
+                res.write(JSON.stringify({ status: 'success'}));
             } else {
-                res.writeHead(500, JSON.stringify({ status: 'failed', message: 'An error occured, read the api docs!'}));
+                res.writeHead(500);
+                res.write(JSON.stringify({ status: 'failed', message: 'An error occured, read the api docs!'}));
             }
-
-            res.end();
         }).catch( (reason) => {
-            res.writeHead(500, JSON.stringify({ status: 'failed', message: 'An error occured, read the api docs!'}));
+            res.writeHead(500);
+            res.write(JSON.stringify({ status: 'failed', message: 'An error occured, read the api docs!'}));
+        }).finally( () => {
             res.end();
         });
     }
@@ -47,17 +59,55 @@ export class UserController {
             res.end();
         } else {
             userService.getUserInfo(id).then( (doc) => {
-                res.writeHead(200, JSON.stringify({ status: 'success', user: doc }));
-                res.end();
+                res.writeHead(200);
+                res.write(JSON.stringify({ status: 'success', user: doc }));
             }).catch( (err) => {
                 console.error(err);
-                res.writeHead(500, JSON.stringify({ status: 'failed', message: 'An error occured, read the api docs!'}));
+                res.writeHead(500);
+                res.write( JSON.stringify({ status: 'failed', message: 'An error occured, read the api docs!'}));
+            }).finally( () => {
+                res.end();
+            });
+        }
+    }
+
+    static deleteUser: RequestHandler = (req, res) => {
+        let id = req.params.userId ?? null;
+
+        if(id === null){
+            res.writeHead(400);
+            res.write(JSON.stringify({ status: "failed", message: 'Bad Request! Read the api docs!'}));
+            res.end();
+        } else {
+            userService.deleteUser(id).then( (result) => {
+                if(result){
+                    res.writeHead(200);
+                    res.write(JSON.stringify({ status: 'success' }));
+                } else {
+                    res.writeHead(500);
+                    res.write(JSON.stringify({ status: 'error', message: "An unexpected error occured! Maybe the user doesn't exist?" }));
+                }
+            }).catch( (err) => {
+                console.error(err);
+                res.writeHead(500);
+                res.write(JSON.stringify({ status: 'failed', message: 'An error occured, read the api docs!'}));
+            }).finally( () => {
                 res.end();
             });
         }
     }
 
     static getAllUsers: RequestHandler = (req, res) => {
-        //todo
+        userService.getUsersList().then( (list) => {
+            if(list){
+                res.writeHead(200);
+                //don't want to let people see other information like password and so on...
+                const filteredList = list.map((item) => { return { name: item.name, surname: item.surname, email: item.email, createdAt: item.createdAt}; });
+                res.end(JSON.stringify({status: "success", "data": filteredList }));
+            } else {
+                res.writeHead(500);
+                res.end(JSON.stringify({status: "failed", "message": "Failed to retrieve users list"}));
+            }
+        });
     }
 }

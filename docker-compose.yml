@@ -51,10 +51,10 @@ services:
     environment:
       - MONGO_INITDB_ROOT_USERNAME=admin
       - MONGO_INITDB_ROOT_PASSWORD=admin
-      - MONGO_INITDB_DATABASE=auction
+      - MONGO_INITDB_DATABASE=progettoTAW
     networks:
       - app-network
-
+      
 networks:
   app-network:
     driver: bridge

@@ -1,32 +1,26 @@
 import * as mongoose from 'mongoose';
 
-class Config {
+export class Configuration {
+    private db: mongoose.Connection;
 
-    private static instance: Config|null = null;
-    
     constructor(
-        public db: mongoose.Connection,
+        
     ){
-        console.log(`Config configuration started...`);
-
-        if(Config.instance !== null){
-            throw "Config can't be instanciated more than once!";
-        }
-
-        Config.instance = this;
+        //just a placeholder
     }
 
-    static getInstance(): Config {
-        console.log(`Config get instance called`);
-        if(typeof Config.instance === undefined || Config.instance === null){
-            throw "Config never instanciated";
-        }
-        
-        return Config.instance; 
+    /**
+     * I need this because once i create a connection it isn't ready and i can instanciate it in the constructor
+     * @param dbConnection 
+     */
+    setDbConnection(dbConnection: mongoose.Connection){
+        this.db = dbConnection;
+    }
+
+    getDbConnection(){
+        return this.db;
     }
 }
 
-export {
-    Config,
-    mongoose
-};
+const ConfigV1 = new Configuration();
+export default ConfigV1;

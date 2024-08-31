@@ -9,26 +9,30 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.config = void 0;
+exports.API_ENDPOINT = exports.config = void 0;
+const config_1 = require("./config");
 const mongoose_1 = require("mongoose");
-console.log(`Exporting new config!`);
+const API_ENDPOINT = "/api/v1";
+exports.API_ENDPOINT = API_ENDPOINT;
 const config = (app, prefix) => __awaiter(void 0, void 0, void 0, function* () {
     console.log(`Configuration of ${prefix} routes..`);
-    //start http server
     //var auth = jwt({secret: process.env.JWT_SECRET}); //< to implement
-    const mongo_cs = process.env.MONGO_DB_CONNECTION_STRING;
-    console.log(`Trying to connect to db via`, mongo_cs);
-    if (typeof mongo_cs === undefined || typeof mongo_cs !== "string") {
-        throw "Mongo connection string is MANDATORY";
-    }
     try {
         console.log(`generate db_connection...`);
-        const db_connection = mongoose_1.default.createConnection(mongo_cs);
-        db_connection.useDb('progettoTAW_auctions');
-        const { Config } = require("./config");
-        const configuration = new Config(db_connection);
+        const mongo_cs = process.env.MONGO_DB_CONNECTION_STRING;
+        console.log(`Trying to connect to db via`, mongo_cs);
+        if (typeof mongo_cs === undefined || typeof mongo_cs !== "string") {
+            throw "Mongo connection string is MANDATORY";
+        }
+        let db = mongoose_1.default.createConnection(mongo_cs);
+        db = db.useDb('progettoTAW');
+        config_1.default.setDbConnection(db);
+        //this.db.listDatabases().then( list => {
+        //    console.log(`List of databases: `, list);
+        //    //this.db.useDb('progettoTAW_auctions');
+        //});
         const v1_routes = require('../routes');
-        const router = v1_routes.getRouter(configuration);
+        const router = v1_routes.getRouter(config_1.default);
         //router.use(cors()); //< disabilito per il momento
         //router.use(bodyParser.json());
         app.use(prefix, router); //< mount apis into a specific prefix
@@ -40,3 +44,4 @@ const config = (app, prefix) => __awaiter(void 0, void 0, void 0, function* () {
     }
 });
 exports.config = config;
+//# sourceMappingURL=index.js.map

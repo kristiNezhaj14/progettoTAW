@@ -4,3 +4,4 @@ const userController = require("./userController");
 exports = {
     userController
 };
+//# sourceMappingURL=index.js.map
