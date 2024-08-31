@@ -10,9 +10,6 @@ import { Configuration }  from '../config/config';
 
 export const getRouter = (config: Configuration) => {
 
-
-    
-
     //should guard for permissions with roles....
     //router for user management
     const userRouter = express.Router();
@@ -39,19 +36,20 @@ export const getRouter = (config: Configuration) => {
 
     userRouter
     .get('/:userId', UserController.getUser)
-    .put('/:userId', UserController.updateUser)
-    .get('/', Middleware.shouldBeAModerator, UserController.getAllUsers)
-    .post('/', Middleware.shouldBeAModerator, UserController.createUser)
-    .post('/register', UserController.register)
-    .delete('/:userId', Middleware.shouldBeAModerator, UserController.deleteUser);
+    .put('/:userId', Middleware.auth, Middleware.shouldBeAModerator, UserController.updateUser) //update account of every user
+    .put('/update', Middleware.auth, UserController.updateUserAccount) //update the account information of the authenticated user
+    .get('/', Middleware.auth, Middleware.shouldBeAModerator, UserController.getAllUsers) //get a list of all users
+    .post('/', Middleware.auth, Middleware.shouldBeAModerator, UserController.createUser) //create an user as moderator
+    .post('/register', UserController.register) //user registration
+    .delete('/:userId', Middleware.auth, Middleware.shouldBeAModerator, UserController.deleteUser); //delete of an user
 
-    router.use("/users", userRouter); //< use a prefix for user routing
+    router.use("/users", userRouter); //< mount on prefix for user related requests routing
 
-    //router for books
+    //router for auctions
 
     //router for bids
 
-    //router for chats and
+    //router for public and private chats related to an auction 
 
     return router;
 }

@@ -67,10 +67,11 @@ export const expectsJsonResponse: RequestHandler = (req, res, next) => {
  * @param next 
  */
 export const shouldBeAModerator: RequestHandler = (req, res, next) => {
-    const authenticatedUser = { isModerator: true}; ///todo modify here the user info!!!
-    if(authenticatedUser.isModerator){
+    if(req.auth.role === 'moderator'){
+        console.log(`User ${req.auth.email} is a moderator so request can proceed.`);
         next();
     } else {
+        console.log(`User ${req.auth.email} tried to accomplish a request that only a moderator can do.`);
         res.writeHead(401);
         res.write(JSON.stringify({status: "failed", message: "You should be a moderator to perform this request"}));
         res.end();

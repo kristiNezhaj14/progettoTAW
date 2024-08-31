@@ -29,6 +29,30 @@ export default class UserController {
         });
     }
 
+    static updateUserAccount: RequestHandler = (req, res) => {
+        var user_email = req.auth.email;
+        var data = req.body;
+
+        userService.getUserByEmail(user_email).then( (userData) => {
+            userService.updateUser(userData.id, data).then((result) => {
+                if (result) {
+                    res.writeHead(200);
+                    res.write(JSON.stringify({ status: 'success' }));
+                } else {
+                    res.writeHead(500);
+                    res.write(JSON.stringify({ status: 'failed', message: 'An error occured, read the api docs!' }));
+                }
+            }).catch((reason) => {
+                res.writeHead(500);
+                res.write(JSON.stringify({ status: 'failed', message: 'An error occured, read the api docs!' }));
+            }).finally(() => {
+                res.end();
+            });
+        });
+
+        
+    }
+
     static updateUser: RequestHandler = (req, res) => {
         var data = req.body;
         var id = req.params.userId;
