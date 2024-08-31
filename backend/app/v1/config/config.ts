@@ -2,7 +2,7 @@ import * as mongoose from 'mongoose';
 
 class Config {
 
-    private static instance: Config;
+    private static instance: Config|null = null;
     
     constructor(
         public db: mongoose.Connection,

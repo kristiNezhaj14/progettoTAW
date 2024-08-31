@@ -7,50 +7,26 @@ import { Config } from '../config/config';
 
 
 export const getRouter = (config: Config) => {
-
+    //should guard for permissions with roles....
     //router for user management
-
     const userRouter = express.Router();
 
-    userRouter.get('/:id', function(req, res){
-        //get a specific user
-    
-    }).put('/:id', function(req, res) {
-        //update a specific user info
-    }).get('/', function(req, res){
-        //get a list of users --> manage filters
-    }).post('/',  UserController.createUser);
+    router.get('/', function(req, res){
+        console.log(`Generic endpoint for api v1 called!`);
+        res.end("Benvenuto/a! Questo e' una api aperta usata solo per scopi di test!");
+    });
+
+    userRouter.get('/:userId',UserController.getUser)
+    .put('/:userId',UserController.updateUser)
+    .get('/', UserController.getAllUsers)
+    .post('/',  UserController.createUser);
 
     router.use("/users", userRouter); //< use a prefix for user routing
+    //router for books
 
+    //router for bids
 
-    //router for table management 
-    const tablesRouter = express.Router();
-
-    tablesRouter.get('/:id', function(req, res){
-        //get a specific user
-    }).put('/:id', function(req, res) {
-        //update a specific user info
-    }).get('/', function(req, res){
-        //get a list of users --> manage filters
-    }).post('/' , (req, res) => {});
-
-    router.use("/tables", tablesRouter); //< use a prefix for user routing
-
-    //router for product management
-
-
-
-
-
-
-    //router for order management
-
-
-
-
-
-    //router for receipt management
+    //router for chats and
 
     return router;
 }

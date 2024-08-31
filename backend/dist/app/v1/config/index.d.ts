@@ -1,2 +1,3 @@
 import { Express } from "express";
-export declare const config: (app: Express, prefix: string) => Promise<void>;
+declare const config: (app: Express, prefix: string) => Promise<void>;
+export { config };

@@ -9,10 +9,16 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.updateUser = exports.deleteUser = exports.createUser = void 0;
+exports.updateUser = exports.deleteUser = exports.createUser = exports.getUserInfo = void 0;
 const models = require("../models");
+const getUserInfo = (id) => __awaiter(void 0, void 0, void 0, function* () {
+    let result = yield models.user.findById(new models.mongoose.Types.ObjectId(id));
+    return result;
+});
+exports.getUserInfo = getUserInfo;
 const createUser = (data) => __awaiter(void 0, void 0, void 0, function* () {
     try {
+        console.log(`Create user:`, data);
         let result = yield models.user.create(data);
         return true;
     }

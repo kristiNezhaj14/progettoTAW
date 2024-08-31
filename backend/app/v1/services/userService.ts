@@ -1,7 +1,14 @@
 import models = require('../models');
 
+
+const getUserInfo = async (id: string) => {
+    let result = await models.user.findById( new models.mongoose.Types.ObjectId(id));
+    return result;
+};
+
 const createUser = async (data: models.UserObject) => {
     try {
+        console.log(`Create user:`, data);
         let result = await models.user.create(data);
         return true;
     } catch (e){
@@ -34,5 +41,5 @@ const login = async (email: string, password: string) => {
 
 
 export {
-    createUser, deleteUser, updateUser
+    getUserInfo, createUser, deleteUser, updateUser
 };

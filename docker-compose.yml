@@ -1,7 +1,8 @@
 version: '3.8'
 #plaholder version of docker composer, to update later...
 services:
-  frontend:
+  auction-frontend:
+    hostname: auction-frontend
     stdin_open: true
     tty: true
     image: node:current-alpine
@@ -12,38 +13,45 @@ services:
     ports:
       - "4200:4200"
     depends_on:
-      - redis
-      - mongo
+      - auction-redisdb
+      - auction-mongodb
     networks:
       - app-network
 
-#  backend:
-#    stdin_open: true
-#    tty: true
-#    image: node:current-alpine
-#    working_dir: /app
-#    command: sh -c "npm i && npm run build && npm run start"
-#    volumes:
-#      - ./backend:/app
-#    ports:
-#      - "3001:3001"
-#    depends_on:
-#      - redis
-#      - mongo
-#    networks:
-#      - app-network
+  auction-backend:
+    hostname: auction-backend
+    stdin_open: true
+    tty: true
+    image: node:current-alpine
+    working_dir: /app
+    command: sh -c "npm i && npm run build && npm run start"
+    volumes:
+      - ./backend:/app
+    ports:
+      - "3001:3001"
+    depends_on:
+      - auction-redisdb
+      - auction-mongodb
+    networks:
+      - app-network
 
-  redis:
+  auction-redisdb:
+    hostname: auction-redisdb
     image: redis:latest
     ports:
       - "6379:6379"
     networks:
       - app-network
 
-  mongo:
+  auction-mongodb:
+    hostname: auction-mongodb
     image: mongo:latest
     ports:
       - "27017:27017"
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=admin
+      - MONGO_INITDB_ROOT_PASSWORD=admin
+      - MONGO_INITDB_DATABASE=auction
     networks:
       - app-network
 

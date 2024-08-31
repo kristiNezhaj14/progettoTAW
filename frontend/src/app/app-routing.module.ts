@@ -6,6 +6,7 @@ import { RegisterComponent } from './register/register.component';
 import { ChatComponent } from './chat/chat.component';
 import { AuctionComponent } from './auction/auction.component';
 import { GroupchatComponent } from './groupchat/groupchat.component';
+
 const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
   { path: 'home', component: HomeComponent },
@@ -20,4 +21,5 @@ const routes: Routes = [
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule]
 })
+
 export class AppRoutingModule { }

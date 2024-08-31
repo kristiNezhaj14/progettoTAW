@@ -21,3 +21,4 @@ class Config {
     }
 }
 exports.Config = Config;
+Config.instance = null;
