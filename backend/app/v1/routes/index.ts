@@ -9,7 +9,6 @@ import UserController from '../controllers/userController';
 import { Configuration }  from '../config/config';
 
 export const getRouter = (config: Configuration) => {
-
     //should guard for permissions with roles....
     //router for user management
     const userRouter = express.Router();

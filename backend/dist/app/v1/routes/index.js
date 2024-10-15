@@ -29,15 +29,16 @@ const getRouter = (config) => {
     });
     userRouter
         .get('/:userId', userController_1.default.getUser)
-        .put('/:userId', userController_1.default.updateUser)
-        .get('/', Middleware.shouldBeAModerator, userController_1.default.getAllUsers)
-        .post('/', Middleware.shouldBeAModerator, userController_1.default.createUser)
-        .post('/register', userController_1.default.register)
-        .delete('/:userId', Middleware.shouldBeAModerator, userController_1.default.deleteUser);
-    router.use("/users", userRouter); //< use a prefix for user routing
-    //router for books
+        .put('/:userId', Middleware.auth, Middleware.shouldBeAModerator, userController_1.default.updateUser) //update account of every user
+        .put('/update', Middleware.auth, userController_1.default.updateUserAccount) //update the account information of the authenticated user
+        .get('/', Middleware.auth, Middleware.shouldBeAModerator, userController_1.default.getAllUsers) //get a list of all users
+        .post('/', Middleware.auth, Middleware.shouldBeAModerator, userController_1.default.createUser) //create an user as moderator
+        .post('/register', userController_1.default.register) //user registration
+        .delete('/:userId', Middleware.auth, Middleware.shouldBeAModerator, userController_1.default.deleteUser); //delete of an user
+    router.use("/users", userRouter); //< mount on prefix for user related requests routing
+    //router for auctions
     //router for bids
-    //router for chats and
+    //router for public and private chats related to an auction 
     return router;
 };
 exports.getRouter = getRouter;

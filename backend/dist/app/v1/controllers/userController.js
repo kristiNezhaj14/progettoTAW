@@ -26,6 +26,27 @@ UserController.createUser = (req, res) => {
         res.end(); //< it's important to be sure that the request ends....
     });
 };
+UserController.updateUserAccount = (req, res) => {
+    var user_email = req.auth.email;
+    var data = req.body;
+    userService.getUserByEmail(user_email).then((userData) => {
+        userService.updateUser(userData.id, data).then((result) => {
+            if (result) {
+                res.writeHead(200);
+                res.write(JSON.stringify({ status: 'success' }));
+            }
+            else {
+                res.writeHead(500);
+                res.write(JSON.stringify({ status: 'failed', message: 'An error occured, read the api docs!' }));
+            }
+        }).catch((reason) => {
+            res.writeHead(500);
+            res.write(JSON.stringify({ status: 'failed', message: 'An error occured, read the api docs!' }));
+        }).finally(() => {
+            res.end();
+        });
+    });
+};
 UserController.updateUser = (req, res) => {
     var data = req.body;
     var id = req.params.userId;

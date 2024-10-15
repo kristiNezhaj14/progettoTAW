@@ -9,7 +9,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getUsersList = exports.updateUser = exports.deleteUser = exports.createUser = exports.getUserInfo = void 0;
+exports.getUserByEmail = exports.getUsersList = exports.updateUser = exports.deleteUser = exports.createUser = exports.getUserInfo = void 0;
 const mongoose_1 = require("mongoose");
 const Models = require("../models");
 const getUsersList = (...args_1) => __awaiter(void 0, [...args_1], void 0, function* (currentPage = 1, pagination = 0) {
@@ -26,6 +26,11 @@ const createUser = (data) => __awaiter(void 0, void 0, void 0, function* () {
     return yield Models.UserModel.getModel().create(data);
 });
 exports.createUser = createUser;
+const getUserByEmail = (email) => __awaiter(void 0, void 0, void 0, function* () {
+    let result = yield Models.UserModel.getModel().findOne({ email: email });
+    return result;
+});
+exports.getUserByEmail = getUserByEmail;
 const updateUser = (id, data) => __awaiter(void 0, void 0, void 0, function* () {
     let user = yield Models.UserModel.getModel().findById(id);
     //we need to do this approach instead of directly call UpdateOne because of the hashedpassword middleware
