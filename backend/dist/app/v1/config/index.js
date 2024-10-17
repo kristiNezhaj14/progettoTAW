@@ -10,6 +10,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.API_ENDPOINT = exports.config = void 0;
+const cors = require("cors");
 const config_1 = require("./config");
 const mongoose_1 = require("mongoose");
 const API_ENDPOINT = "/api/v1";
@@ -33,7 +34,11 @@ const config = (app, prefix) => __awaiter(void 0, void 0, void 0, function* () {
         //});
         const v1_routes = require('../routes');
         const router = v1_routes.getRouter(config_1.default);
-        //router.use(cors()); //< disabilito per il momento
+        app.use(cors({
+            origin: "*",
+            preflightContinue: true,
+            credentials: true
+        }));
         //router.use(bodyParser.json());
         app.use(prefix, router); //< mount apis into a specific prefix
         console.log(`Apis mounted on prefix ${prefix}`);

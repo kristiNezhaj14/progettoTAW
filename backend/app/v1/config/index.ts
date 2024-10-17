@@ -36,7 +36,12 @@ const config = async (app: Express, prefix: string)  => {
         const v1_routes = require('../routes');
         const router = v1_routes.getRouter(ConfigV1);
         
-        //router.use(cors()); //< disabilito per il momento
+        app.use(cors({
+            origin: "*",
+            preflightContinue: true,
+            credentials: true
+        })); 
+        
         //router.use(bodyParser.json());
         app.use(prefix, router); //< mount apis into a specific prefix
 
