@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule, provideClientHydration } from '@angular/platform-browser';
-
+import { provideHttpClient } from '@angular/common/http'; 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
@@ -10,6 +10,7 @@ import { ChatComponent } from './chat/chat.component';
 import { RouterModule } from '@angular/router';
 import { AuctionComponent } from './auction/auction.component';
 import { GroupchatComponent } from './groupchat/groupchat.component'; 
+import { FormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -26,9 +27,11 @@ import { GroupchatComponent } from './groupchat/groupchat.component';
     BrowserModule,
     AppRoutingModule,
     RouterModule,
+    FormsModule,
   ],
   providers: [
-    provideClientHydration()
+    provideClientHydration(),
+    provideHttpClient()
   ],
   bootstrap: [AppComponent]
 })
