@@ -6,6 +6,7 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class AuthService {
+
   private apiUrl = 'http://localhost:3001/api/v1';  // URL del backend
 
   constructor(private http: HttpClient) {}
@@ -21,5 +22,10 @@ export class AuthService {
     });
 
     return this.http.post(`${this.apiUrl}/authenticate`, {}, { headers });
+  }
+
+  register(name: string, surname: string, email: string, password: string): Observable<any> {
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+    return this.http.post(`${this.apiUrl}/users/register`, { name, surname, email, password }, { headers });
   }
 }

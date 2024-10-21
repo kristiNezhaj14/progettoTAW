@@ -34,11 +34,18 @@ const config = (app, prefix) => __awaiter(void 0, void 0, void 0, function* () {
         //});
         const v1_routes = require('../routes');
         const router = v1_routes.getRouter(config_1.default);
-        app.use(cors({
+        const cors_options = {
             origin: "*",
             preflightContinue: true,
-            credentials: true
-        }));
+            credentials: true,
+            methods: "GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS",
+            allowedHeaders: ['Content-Type', 'Authorization'],
+            optionsSuccessStatus: 200
+        };
+        app.use(cors(cors_options));
+        app.options('*', cors(cors_options), (req, res) => {
+            return res.status(200).end();
+        });
         //router.use(bodyParser.json());
         app.use(prefix, router); //< mount apis into a specific prefix
         console.log(`Apis mounted on prefix ${prefix}`);

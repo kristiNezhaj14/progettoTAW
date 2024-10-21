@@ -21,6 +21,7 @@
             <input type="password" id="login-password" [(ngModel)]="password" name="password" required>
           </div>
           <button type="submit" [disabled]="loginForm.form.invalid">Login</button>
+          <p class="toggle">Don't have an account? <a href="/register" id="show-register">Register here</a></p>
         </form>
         
       </div>
