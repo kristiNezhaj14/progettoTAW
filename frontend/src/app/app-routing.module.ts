@@ -6,6 +6,7 @@ import { RegisterComponent } from './register/register.component';
 import { ChatComponent } from './chat/chat.component';
 import { AuctionComponent } from './auction/auction.component';
 import { GroupchatComponent } from './groupchat/groupchat.component';
+import { ProfileComponent } from './profile/profile.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
@@ -15,6 +16,7 @@ const routes: Routes = [
   { path: 'chat', component: ChatComponent },
   { path: 'auction', component: AuctionComponent },
   { path: 'groupchat', component: GroupchatComponent},
+  { path: 'profile', component: ProfileComponent }
 ];
 
 @NgModule({

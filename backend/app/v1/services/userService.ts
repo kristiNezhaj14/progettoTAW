@@ -8,9 +8,18 @@ const getUsersList = async (currentPage = 1, pagination = 0) => {
 }
 
 const getUserInfo = async (id: string) => {
-    let result = await Models.UserModel.getModel().findById( new mongoose.Types.ObjectId(id));
+    console.log("DIOCANEEEEEEEEEEE"+id);
+    if (!mongoose.Types.ObjectId.isValid(id)) {
+        throw new Error("Invalid ObjectId format");
+    }
+    let result = await Models.UserModel.getModel().findById(new mongoose.Types.ObjectId(id));
     return result;
 };
+
+
+
+
+
 
 const createUser = async (data: Models.UserModel.UserInterface) => {
     return await Models.UserModel.getModel().create(data);

@@ -9,7 +9,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.shouldBeAModerator = exports.expectsJsonResponse = exports.passport = exports.auth = void 0;
+exports.shouldBeAModerator = exports.expectsJsonResponse = exports.passport = exports.logAuth = exports.auth = void 0;
 const passport = require("passport"); // authentication middleware for Express
 exports.passport = passport;
 const passportHTTP = require("passport-http"); // implements Basic and Digest authentication for HTTP (used for /login endpoint)
@@ -17,8 +17,13 @@ const { expressjwt: jwt } = require('express-jwt'); // JWT parsing middleware fo
 const models_1 = require("../models");
 exports.auth = jwt({
     secret: process.env.JWT_SECRET,
-    algorithms: ["HS256"]
-}); //jwt middleware
+    algorithms: ["HS256"],
+});
+const logAuth = (req, res, next) => {
+    console.log("Decoded auth payload:", req.auth);
+    next();
+}; //jwt middleware
+exports.logAuth = logAuth;
 passport.use(new passportHTTP.BasicStrategy(function (email, password, done) {
     return __awaiter(this, void 0, void 0, function* () {
         // "done" callback (verify callback) documentation:  http://www.passportjs.org/docs/configure/

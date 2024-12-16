@@ -10,10 +10,15 @@ import { UserModel } from "../models";
 import { getSchema } from '../models/User';
 
 
-export const auth = jwt( {
-    secret: process.env.JWT_SECRET, 
-    algorithms: ["HS256"]
-}); //jwt middleware
+export const auth = jwt({
+    secret: process.env.JWT_SECRET,
+    algorithms: ["HS256"],
+});
+
+export const logAuth: RequestHandler = (req, res, next) => {
+    console.log("Decoded auth payload:", req.auth);
+    next();
+};//jwt middleware
 
 passport.use( new passportHTTP.BasicStrategy(
     async function(email, password, done) {

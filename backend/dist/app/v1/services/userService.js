@@ -18,6 +18,10 @@ const getUsersList = (...args_1) => __awaiter(void 0, [...args_1], void 0, funct
 });
 exports.getUsersList = getUsersList;
 const getUserInfo = (id) => __awaiter(void 0, void 0, void 0, function* () {
+    console.log("DIOCANEEEEEEEEEEE" + id);
+    if (!mongoose_1.default.Types.ObjectId.isValid(id)) {
+        throw new Error("Invalid ObjectId format");
+    }
     let result = yield Models.UserModel.getModel().findById(new mongoose_1.default.Types.ObjectId(id));
     return result;
 });

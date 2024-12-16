@@ -11,6 +11,7 @@ import { RouterModule } from '@angular/router';
 import { AuctionComponent } from './auction/auction.component';
 import { GroupchatComponent } from './groupchat/groupchat.component'; 
 import { FormsModule } from '@angular/forms';
+import { CommonModule } from '@angular/common'; 
 
 
 
@@ -28,7 +29,8 @@ import { FormsModule } from '@angular/forms';
     BrowserModule,
     AppRoutingModule,
     RouterModule,
-    FormsModule
+    FormsModule,
+    CommonModule,
   ],
   providers: [
     provideClientHydration(),

@@ -28,6 +28,35 @@ export default class UserController {
             res.end(); //< it's important to be sure that the request ends....
         });
     }
+    static getLoggedInUser: RequestHandler = async (req, res) => {
+        try {
+            const userId = req.auth?.id; // Usa l'id dal JWT
+            if (!userId) {
+                return res.status(400).json({ status: 'failed', message: 'User ID is required' });
+            }
+    
+            const user = await userService.getUserInfo(userId);
+            if (!user) {
+                return res.status(404).json({ status: 'failed', message: 'User not found' });
+            }
+    
+            // Filtra i dati sensibili (es. password)
+            const filteredUser = {
+                _id: user._id,
+                name: user.name,
+                surname: user.surname,
+                email: user.email,
+                role: user.role,
+                createdAt: user.createdAt,
+            };
+    
+            res.status(200).json({ status: 'success', user: filteredUser });
+        } catch (error) {
+            console.error(error);
+            res.status(500).json({ status: 'failed', message: 'An error occurred.' });
+        }
+    };
+    
 
     static updateUserAccount: RequestHandler = (req, res) => {
         var user_email = req.auth.email;
@@ -75,26 +104,22 @@ export default class UserController {
         });
     }
 
-    static getUser: RequestHandler = (req, res) => {
-        let id = req.params.userId ?? null;
-
-        if(id === null){
-            res.writeHead(400, "Bad request!");
-            res.end();
-        } else {
-            userService.getUserInfo(id).then( (doc) => {
-                res.writeHead(200);
-                res.write(JSON.stringify({ status: 'success', user: doc }));
-            }).catch( (err) => {
-                console.error(err);
-                res.writeHead(500);
-                res.write( JSON.stringify({ status: 'failed', message: 'An error occured, read the api docs!'}));
-            }).finally( () => {
-                res.end();
-            });
+    static getUser: RequestHandler = async (req, res) => {
+        const id = req.params.userId;
+    
+        try {
+            const user = await userService.getUserInfo(id);
+            if (!user) {
+                return res.status(404).json({ status: 'failed', message: 'User not found' });
+            }
+            return res.status(200).json({ status: 'success', user });
+        } catch (err) {
+            console.error('Error in getUser:', err.message);
+            return res.status(400).json({ status: 'failed', message: err.message });
         }
-    }
-
+    };
+    
+    
     static deleteUser: RequestHandler = (req, res) => {
         let id = req.params.userId ?? null;
 
