@@ -19,8 +19,14 @@ export const getRouter = (config: Configuration) => {
         res.end("Benvenuto/a! Questo e' una api aperta usata solo per scopi di test!");
     });
 
+<<<<<<< HEAD
     router.post('/authenticate', Middleware.passport.authenticate('basic', { session: false }), (req, res) => {
         const tokendata = {
+=======
+    router.post('/authenticate', Middleware.passport.authenticate('basic', { session: false }), (req, res, next) => {
+        /** Taken from TAW lectures code */
+        let tokendata = {
+>>>>>>> bd8c596cd1f5e71efa44f0500a0815887de44dc3
             role: req.user.role,
             email: req.user.email,
             id: req.user._id.toString(), // Memorizza l'ID come stringa
@@ -72,6 +78,9 @@ export const getRouter = (config: Configuration) => {
         .post('/register', UserController.register) // user registration
         .delete('/:userId', Middleware.auth, Middleware.shouldBeAModerator, UserController.deleteUser);
 
+
+
+    
     router.use("/users", userRouter); //< mount on prefix for user related requests routing
 
     // Router per listings

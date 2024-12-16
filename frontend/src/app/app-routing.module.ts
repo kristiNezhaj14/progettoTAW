@@ -9,10 +9,12 @@ import { GroupchatComponent } from './groupchat/groupchat.component';
 import { ProfileComponent } from './profile/profile.component';
 
 const routes: Routes = [
+
+  //da vedere se gestisce i proxy per la gestione del wss 
   { path: '', redirectTo: '/home', pathMatch: 'full' },
   { path: 'home', component: HomeComponent },
   { path: 'login', component: LoginComponent },
-  {path: 'register', component: RegisterComponent },
+  { path: 'register', component: RegisterComponent },
   { path: 'chat', component: ChatComponent },
   { path: 'auction', component: AuctionComponent },
   { path: 'groupchat', component: GroupchatComponent},

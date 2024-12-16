@@ -56,5 +56,7 @@ startApiConfigurations(app).then( function(app){
         }
     });
 
+    
+
     //insert also socketio
 });

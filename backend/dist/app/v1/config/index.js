@@ -28,10 +28,9 @@ const config = (app, prefix) => __awaiter(void 0, void 0, void 0, function* () {
         let db = mongoose_1.default.createConnection(mongo_cs);
         db = db.useDb('progettoTAW');
         config_1.default.setDbConnection(db);
-        //this.db.listDatabases().then( list => {
-        //    console.log(`List of databases: `, list);
-        //    //this.db.useDb('progettoTAW_auctions');
-        //});
+        const list = yield db.listDatabases();
+        console.log(list);
+        //< check existance of 'progettoTAW' if not exists generate al demo data else noop
         const v1_routes = require('../routes');
         const router = v1_routes.getRouter(config_1.default);
         const cors_options = {
