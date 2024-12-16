@@ -1,36 +1,29 @@
+body {
+  background-color: #f8f9fa;
+  font-family: 'Poppins', sans-serif;
+}
+
 .profile-container {
-    max-width: 600px;
-    margin: 50px auto;
-  }
-  
-  .profile-card {
-    border: none;
-    border-radius: 15px;
-    overflow: hidden;
-  }
-  
-  .card-header {
-    background: linear-gradient(to right, #1e3a8a, #3b82f6);
-    color: #fff;
-  }
-  
-  .profile-picture {
-    width: 150px;
-    height: 150px;
-    object-fit: cover;
-    border: 5px solid #fff;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  }
-  
-  .btn-primary {
-    background: linear-gradient(to right, #3b82f6, #1e3a8a);
-    border: none;
-    padding: 10px 20px;
-    border-radius: 25px;
-    font-size: 1rem;
-  }
-  
-  .btn-primary:hover {
-    background: linear-gradient(to right, #1e3a8a, #3b82f6);
-  }
-  
+  max-width: 600px;
+  margin: 50px auto;
+}
+
+.profile-card {
+  border: none;
+  border-radius: 15px;
+  overflow: hidden;
+}
+
+.card-header {
+  background: linear-gradient(to right, #1e3a8a, #3b82f6);
+  color: #fff;
+}
+
+.profile-picture {
+  width: 150px;
+  height: 150px;
+  object-fit: cover;
+  border: 5px solid #fff;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+
+}

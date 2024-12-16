@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { Router } from '@angular/router';
+import { UserService } from '../services/user.service';
 
 @Component({
   selector: 'app-profile',
@@ -8,37 +7,24 @@ import { Router } from '@angular/router';
   styleUrls: ['./profile.component.css']
 })
 export class ProfileComponent implements OnInit {
-  user: any = {}; // Dati utente
+  user: any = null; // Qui memorizzeremo i dati dell'utente
+  error: string | null = null;
 
-  constructor(private http: HttpClient, private router: Router) {}
+  constructor(private userService: UserService) {}
 
   ngOnInit(): void {
-    this.getUserDetails();
+    this.loadUserProfile();
   }
 
-  getUserDetails() {
-    const token = localStorage.getItem('authToken');
-    this.http.get('/api/v1/users/me', { headers: { Authorization: `Bearer ${token}` } })
-      .subscribe(
-        (response: any) => {
-          // Formattazione della data
-          if (response.user.createdAt) {
-            const date = new Date(response.user.createdAt);
-            response.user.formattedCreatedAt = date.toLocaleDateString('it-IT', {
-              year: 'numeric',
-              month: 'long',
-              day: 'numeric',
-            });
-          }
-          this.user = response.user;
-        },
-        (error) => {
-          console.error('Errore durante il recupero delle informazioni dell\'utente:', error);
-        }
-      );
-  }
-
-  navigateToEdit() {
-    this.router.navigate(['/edit-profile']);
+  loadUserProfile(): void {
+    this.userService.getUser().subscribe({
+      next: (response) => {
+        this.user = response.user;
+      },
+      error: (err) => {
+        console.error('Errore nel caricamento del profilo:', err);
+        this.error = 'Non è stato possibile caricare il profilo utente.';
+      }
+    });
   }
 }
