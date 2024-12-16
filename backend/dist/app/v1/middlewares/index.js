@@ -62,6 +62,7 @@ exports.expectsJsonResponse = expectsJsonResponse;
  * @param next
  */
 const shouldBeAModerator = (req, res, next) => {
+    //console.log(req, res, req.auth);
     if (req.auth.role === 'moderator') {
         console.log(`User ${req.auth.email} is a moderator so request can proceed.`);
         next();

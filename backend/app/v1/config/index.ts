@@ -28,18 +28,31 @@ const config = async (app: Express, prefix: string)  => {
         db = db.useDb('progettoTAW');
         ConfigV1.setDbConnection(db);
 
-        //this.db.listDatabases().then( list => {
-        //    console.log(`List of databases: `, list);
-        //    //this.db.useDb('progettoTAW_auctions');
-        //});
+        const list = await db.listDatabases();
+
+        console.log(list);
+        
+        //< check existance of 'progettoTAW' if not exists generate al demo data else noop
 
         const v1_routes = require('../routes');
         const router = v1_routes.getRouter(ConfigV1);
         
-        //router.use(cors()); //< disabilito per il momento
+        const cors_options = {
+            origin: "*",
+            preflightContinue: true,
+            credentials: true,
+            methods: "GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS",
+            allowedHeaders:['Content-Type', 'Authorization'],
+        };
+
+        app.use(cors(cors_options));
+
+        app.options('*', cors(cors_options), (req, res) => {
+            return res.status(200).end();
+        });
+
         //router.use(bodyParser.json());
         app.use(prefix, router); //< mount apis into a specific prefix
-
         console.log(`Apis mounted on prefix ${prefix}`);
     } catch (error){
         console.error("An error occured while connecting to database!");

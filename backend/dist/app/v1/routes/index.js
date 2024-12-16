@@ -18,7 +18,7 @@ const getRouter = (config) => {
     router.post('/authenticate', Middleware.passport.authenticate('basic', { session: false }), (req, res, next) => {
         /** Taken from TAW lectures code */
         let tokendata = {
-            role: req.user.rolee,
+            role: req.user.role,
             email: req.user.email,
             id: req.user.id
         };
@@ -36,9 +36,9 @@ const getRouter = (config) => {
         .post('/register', userController_1.default.register) //user registration
         .delete('/:userId', Middleware.auth, Middleware.shouldBeAModerator, userController_1.default.deleteUser); //delete of an user
     router.use("/users", userRouter); //< mount on prefix for user related requests routing
-    //router for auctions
+    //router for auctions (Books)
     //router for bids
-    //router for public and private chats related to an auction 
+    //router for public and private chats related to an auction
     return router;
 };
 exports.getRouter = getRouter;
