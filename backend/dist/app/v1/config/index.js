@@ -39,7 +39,6 @@ const config = (app, prefix) => __awaiter(void 0, void 0, void 0, function* () {
             credentials: true,
             methods: "GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS",
             allowedHeaders: ['Content-Type', 'Authorization'],
-            optionsSuccessStatus: 200
         };
         app.use(cors(cors_options));
         app.options('*', cors(cors_options), (req, res) => {

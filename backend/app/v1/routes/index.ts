@@ -19,7 +19,7 @@ export const getRouter = (config: Configuration) => {
         res.end("Benvenuto/a! Questo e' una api aperta usata solo per scopi di test!");
     });
 
-<<<<<<< HEAD
+
     router.post('/authenticate', Middleware.passport.authenticate('basic', { session: false }), (req, res) => {
         const tokendata = {
             role: req.user.role,
