@@ -13,6 +13,7 @@ import { GroupchatComponent } from './groupchat/groupchat.component';
 import { FormsModule } from '@angular/forms';
 
 
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -27,7 +28,7 @@ import { FormsModule } from '@angular/forms';
     BrowserModule,
     AppRoutingModule,
     RouterModule,
-    FormsModule,
+    FormsModule
   ],
   providers: [
     provideClientHydration(),
