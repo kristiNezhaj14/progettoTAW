@@ -3,43 +3,40 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Login & Registration</title>
+  <title>Register</title>
   <link rel="stylesheet" href="register.component.css">
 </head>
 <body>
   <div class="container">
     <div class="form-container">
-      <div class="login-form active">
+      <div class="register-form active">
         <h2>Register</h2>
-        <form>
+        <form (ngSubmit)="onSubmit()">
           <div class="form-group">
-            <label for="login-username">Username</label>
-            <input type="text" id="login-username" required>
+            <label for="name">Name</label>
+            <input type="text" id="name" [(ngModel)]="name" name="name" required>
           </div>
           <div class="form-group">
-            <label for="login-password">Email</label>
-            <input type="text" id="mail" required>
+            <label for="surname">Surname</label>
+            <input type="text" id="surname" [(ngModel)]="surname" name="surname" required>
           </div>
           <div class="form-group">
-            <label for="login-password">Password</label>
-            <input type="password" id="login-password" required>
+            <label for="email">Email</label>
+            <input type="email" id="email" [(ngModel)]="email" name="email" required>
           </div>
           <div class="form-group">
-            <label for="login-password">Repeat password</label>
-            <input type="password" id="ripPass" required>
+            <label for="password">Password</label>
+            <input type="password" id="password" [(ngModel)]="password" name="password" required>
           </div>
           <div class="form-group">
-            <input type="checkbox" id="accept-terms" name="accept-terms">
-            <label for="accept-terms">Moderator Registration</label>
+            <label for="confirm-password">Confirm Password</label>
+            <input type="password" id="confirm-password" [(ngModel)]="confirmPassword" name="confirmPassword" required>
           </div>
-          
-          <button type="submit">Login</button>
-          <p class="toggle">Alread have an account? <a href="/login" id="show-register">Login here</a></p>
+          <button type="submit">Register</button>
         </form>
+        
       </div>
-    
     </div>
   </div>
-  <script src="script.js"></script>
 </body>
 </html>

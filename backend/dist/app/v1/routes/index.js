@@ -7,9 +7,9 @@ const Middleware = require("../middlewares");
 const jsonwebtoken = require("jsonwebtoken"); // JWT generation
 require("../controllers");
 const userController_1 = require("../controllers/userController");
+const ListingController_1 = require("../controllers/ListingController"); // Controller per listings
 const getRouter = (config) => {
-    //should guard for permissions with roles....
-    //router for user management
+    // Router per user management
     const userRouter = express.Router();
     router.get('/', function (req, res) {
         console.log(`Generic endpoint for api v1 called!`);
@@ -29,16 +29,19 @@ const getRouter = (config) => {
     });
     userRouter
         .get('/:userId', userController_1.default.getUser)
-        .put('/:userId', Middleware.auth, Middleware.shouldBeAModerator, userController_1.default.updateUser) //update account of every user
-        .put('/update', Middleware.auth, userController_1.default.updateUserAccount) //update the account information of the authenticated user
-        .get('/', Middleware.auth, Middleware.shouldBeAModerator, userController_1.default.getAllUsers) //get a list of all users
-        .post('/', Middleware.auth, Middleware.shouldBeAModerator, userController_1.default.createUser) //create an user as moderator
-        .post('/register', userController_1.default.register) //user registration
-        .delete('/:userId', Middleware.auth, Middleware.shouldBeAModerator, userController_1.default.deleteUser); //delete of an user
+        .put('/:userId', Middleware.auth, Middleware.shouldBeAModerator, userController_1.default.updateUser) // update account of every user
+        .put('/update', Middleware.auth, userController_1.default.updateUserAccount) // update the account information of the authenticated user
+        .get('/', Middleware.auth, Middleware.shouldBeAModerator, userController_1.default.getAllUsers) // get a list of all users
+        .post('/', Middleware.auth, Middleware.shouldBeAModerator, userController_1.default.createUser) // create an user as moderator
+        .post('/register', userController_1.default.register) // user registration
+        .delete('/:userId', Middleware.auth, Middleware.shouldBeAModerator, userController_1.default.deleteUser); // delete of an user
     router.use("/users", userRouter); //< mount on prefix for user related requests routing
-    //router for auctions (Books)
-    //router for bids
-    //router for public and private chats related to an auction
+    // Router per listings
+    const listingsRouter = express.Router();
+    listingsRouter
+        .post('/', Middleware.auth, ListingController_1.default.createListing) // Crea un nuovo listing
+        .get('/', ListingController_1.default.getListings); // Recupera tutti i listings
+    router.use("/listings", listingsRouter); //< mount on prefix for listings
     return router;
 };
 exports.getRouter = getRouter;
