@@ -8,7 +8,6 @@ const getUsersList = async (currentPage = 1, pagination = 0) => {
 }
 
 const getUserInfo = async (id: string) => {
-    console.log("DIOCANEEEEEEEEEEE"+id);
     if (!mongoose.Types.ObjectId.isValid(id)) {
         throw new Error("Invalid ObjectId format");
     }
